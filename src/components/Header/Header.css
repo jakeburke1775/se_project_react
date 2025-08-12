@@ -15,8 +15,8 @@
 
 .header__add-clothes {
   margin: 0 20px 0 auto;
-  border: none;
-  background: none;
+  /* border: none; */
+  /* background: none; */
 }
 
 .header__user-container {
