@@ -1,34 +1,55 @@
+// Import styles and components
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import { useState } from "react"; // Import useState from React
+import { useState } from "react"; // React hook for state management
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
 
+// --- App Component ---
 function App() {
-  // Set initial weatherData for testing; change type to "hot", "warm", or "cold"
+  // --- State Section ---
+  // State for weather data (used by Main)
   const [weatherData, setWeatherData] = useState({ type: "cold" });
-  const [activeModal, setActiveModal] = useState(""); // State to manage modal visibility
+  // State for which modal is open ("add-garment", "preview", or "")
+  const [activeModal, setActiveModal] = useState("");
+  // State for which card is selected for preview
+  const [selectedCard, setSelectedCard] = useState("");
 
+  // --- Event Handlers Section ---
+  // Opens the preview modal and sets the selected card
+  const handleCardClick = (card) => {
+    setActiveModal("preview");
+    setSelectedCard(card);
+  };
+
+  // Opens the add garment modal
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
 
+  // Closes any open modal
   const closeActiveModal = () => {
-    setActiveModal(""); // Close the modal by resetting activeModal
+    setActiveModal("");
   };
 
+  // --- Render Section ---
   return (
     <div className="page">
       <div className="page__content">
+        {/* Header receives a callback to open the add garment modal */}
         <Header handleAddClick={handleAddClick} />
-        <Main weatherData={weatherData} />
+        {/* Main receives weatherData for filtering clothing items */}
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
       </div>
+      {/* Modal for adding a new garment. Only visible if activeModal === "add-garment" */}
       <ModalWithForm
         title="New Garment"
         buttonText="Add Garment"
         activeModal={activeModal}
-        handleCloseClick={closeActiveModal}
+        onClose={closeActiveModal}
       >
+        {/* Form fields for garment name and image */}
         <label htmlFor="nane" className="modal__label">
           Name{" "}
           <input
@@ -47,6 +68,7 @@ function App() {
             placeholder="Image URL"
           />
         </label>
+        {/* Radio buttons for selecting weather type */}
         <feildset className="modal__radio-btns">
           <legend className="modal__legend">Select the weather type:</legend>
           <label
@@ -90,8 +112,14 @@ function App() {
           </label>
         </feildset>
       </ModalWithForm>
+      {/* Modal for previewing a selected card. Only visible if activeModal === "preview" */}
+      <ItemModal
+        activeModal={activeModal}
+        card={selectedCard}
+        onClose={closeActiveModal}
+      />
     </div>
   );
 }
 
-export default App;
+export default App; // Export the App component
