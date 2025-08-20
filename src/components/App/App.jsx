@@ -2,6 +2,7 @@
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react"; // React hook for state management
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
@@ -19,6 +20,7 @@ function App() {
       city: "",
     },
   });
+  const currentYear = new Date().getFullYear(); // Get the current year for the footer
   // State for which modal is open ("add-garment", "preview", or "")
   const [activeModal, setActiveModal] = useState("");
   // State for which card is selected for preview
@@ -138,6 +140,7 @@ function App() {
         card={selectedCard}
         onClose={closeActiveModal}
       />
+      <Footer name="Jake Burke" year={currentYear} />
     </div>
   );
 }

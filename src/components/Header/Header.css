@@ -15,8 +15,11 @@
 
 .header__add-clothes {
   margin: 0 20px 0 auto;
-  /* border: none; */
-  /* background: none; */
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .header__user-container {

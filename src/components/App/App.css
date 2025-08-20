@@ -1,5 +1,9 @@
 .page {
   background-color: #f3f3f3;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  min-height: 100vh;
 }
 .page__content {
   max-width: 1360px;
