@@ -2,15 +2,23 @@
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import { useState } from "react"; // React hook for state management
+import { useEffect, useState } from "react"; // React hook for state management
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
+import { getWeather, filterWeatherData } from "../../utils/weatherApi"; // Import weather API utility
+import { coordinates, APIkey } from "../../utils/constants"; // Import coordinates and API key
 
 // --- App Component ---
 function App() {
   // --- State Section ---
   // State for weather data (used by Main)
-  const [weatherData, setWeatherData] = useState({ type: "cold" });
+  const [weatherData, setWeatherData] = useState({
+    type: "cold",
+    temp: {
+      F: 999,
+      city: "",
+    },
+  });
   // State for which modal is open ("add-garment", "preview", or "")
   const [activeModal, setActiveModal] = useState("");
   // State for which card is selected for preview
@@ -33,12 +41,24 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    // Fetch weather data from the API
+    getWeather(coordinates, APIkey)
+      .then((data) => {
+        const filteredData = filterWeatherData(data);
+        setWeatherData(filteredData);
+      })
+      .catch(console.error);
+  }, []);
+
+  console.log(weatherData);
+
   // --- Render Section ---
   return (
     <div className="page">
       <div className="page__content">
         {/* Header receives a callback to open the add garment modal */}
-        <Header handleAddClick={handleAddClick} />
+        <Header handleAddClick={handleAddClick} weatherData={weatherData} />
         {/* Main receives weatherData for filtering clothing items */}
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
       </div>
@@ -69,7 +89,7 @@ function App() {
           />
         </label>
         {/* Radio buttons for selecting weather type */}
-        <feildset className="modal__radio-btns">
+        <fieldset className="modal__radio-btns">
           <legend className="modal__legend">Select the weather type:</legend>
           <label
             className="modal__label modal__label__type__radio"
@@ -110,7 +130,7 @@ function App() {
             />
             Cold
           </label>
-        </feildset>
+        </fieldset>
       </ModalWithForm>
       {/* Modal for previewing a selected card. Only visible if activeModal === "preview" */}
       <ItemModal

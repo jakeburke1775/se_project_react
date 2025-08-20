@@ -8,15 +8,19 @@ function Main({ weatherData, handleCardClick }) {
   // Main component receives weatherData and handleCardClick as props
   return (
     <main>
-      <WeatherCard /> {/* Render the WeatherCard component */}
+  <WeatherCard weatherData={weatherData} />{" "}
+      {/* Render the WeatherCard component */}
       <section className="cards">
         {/* Section for clothing cards */}
         <p className="cards__text">
-          Today is 75 &deg; F / You may want to wear:
+          Today is {weatherData.temp.F} &deg; F / You may want to wear:
         </p>
         <ul className="cards__list">
           {/* Unordered list for clothing items */}
           {defaultClothingItems
+            .filter((item) => {
+              return item.weather === weatherData.type;
+            })
             .map((item) => (
               <ItemCard
                 item={item}
