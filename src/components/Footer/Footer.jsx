@@ -5,7 +5,7 @@ function Footer({ name, year }) {
     <footer className="footer">
       <div className="footer__container">
         <p className="footer__component">{name}</p>
-        <p className="footer__component">© {year}</p>
+        <p className="footer__component">{year}</p>
       </div>
     </footer>
   );

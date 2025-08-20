@@ -29,6 +29,16 @@
   position: absolute;
   top: 20px;
   right: 28px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+.modal__close-button_img {
+  width: 16px;
+  height: 16px;
+  background-position: center;
 }
 
 .modal__content {
