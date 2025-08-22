@@ -11,13 +11,11 @@ function ModalWithForm({ children, buttonText, title, activeModal, onClose }) {
       <div className={`modal ${activeModal ? "modal__opened" : ""}`}>   */}
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
-        <button type="button" className="modal__close-button" onClick={onClose}>
-          <img
-            src={closeIcon}
-            alt="Close"
-            className="modal__close-button_img"
-          />
-        </button>
+        <button
+          type="button"
+          className="modal__close-button"
+          onClick={onClose}
+        ></button>
         <form className="modal__form">
           {children}
           <button className="modal__submit" type="submit">

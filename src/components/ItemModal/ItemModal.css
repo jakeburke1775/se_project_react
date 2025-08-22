@@ -1,1 +1,9 @@
 @import "../ModalWithForm/ModalWithForm.css";
+
+.modal__footer {
+  padding: 32px;
+}
+
+.modal__weather {
+  margin: 12px 0 0 0;
+}
