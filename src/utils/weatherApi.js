@@ -32,7 +32,7 @@ const getWeatherType = (temp) => {
     return "hot";
   } else if (temp > 60) {
     return "warm";
-  } else if (temp > 45) {
+  } else if (temp <= 60) {
     return "cold";
   }
 };

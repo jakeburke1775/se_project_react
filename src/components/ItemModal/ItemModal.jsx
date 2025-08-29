@@ -27,5 +27,3 @@ function ItemModal({ activeModal, onClose, card }) {
 }
 
 export default ItemModal;
-
-//8min

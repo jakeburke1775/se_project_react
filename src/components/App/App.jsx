@@ -7,7 +7,11 @@ import { useEffect, useState } from "react"; // React hook for state management
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
 import { getWeather, filterWeatherData } from "../../utils/weatherApi"; // Import weather API utility
-import { coordinates, APIkey } from "../../utils/constants"; // Import coordinates and API key
+import {
+  coordinates,
+  APIkey,
+  defaultClothingItems,
+} from "../../utils/constants"; // Import coordinates, API key, and clothing items
 
 // --- App Component ---
 function App() {
@@ -15,11 +19,13 @@ function App() {
   // State for weather data (used by Main)
   const [weatherData, setWeatherData] = useState({
     type: "cold",
-    temp: {
-      F: 999,
-      city: "",
-    },
+    temp: { F: 0 },
+    city: "",
+    condition: "",
+    isDay: true,
   });
+  // State for clothing items
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const currentYear = new Date().getFullYear(); // Get the current year for the footer
   // State for which modal is open ("add-garment", "preview", or "")
   const [activeModal, setActiveModal] = useState("");
@@ -53,7 +59,7 @@ function App() {
       .catch(console.error);
   }, []);
 
-  console.log(weatherData);
+  // console.log(weatherData); Debug here :)
 
   // --- Render Section ---
   return (
@@ -62,7 +68,11 @@ function App() {
         {/* Header receives a callback to open the add garment modal */}
         <Header handleAddClick={handleAddClick} weatherData={weatherData} />
         {/* Main receives weatherData for filtering clothing items */}
-        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Main
+          weatherData={weatherData}
+          clothingItems={clothingItems}
+          handleCardClick={handleCardClick}
+        />
       </div>
       {/* Modal for adding a new garment. Only visible if activeModal === "add-garment" */}
       <ModalWithForm
@@ -70,15 +80,17 @@ function App() {
         buttonText="Add Garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
+        name="add-garment"
       >
         {/* Form fields for garment name and image */}
-        <label htmlFor="nane" className="modal__label">
+        <label htmlFor="name" className="modal__label">
           Name{" "}
           <input
             type="text"
             className="modal__input"
             id="name"
             placeholder="Name"
+            required
           />
         </label>
         <label htmlFor="imgUrl" className="modal__label">
@@ -88,6 +100,7 @@ function App() {
             className="modal__input"
             id="imgUrl"
             placeholder="Image URL"
+            required
           />
         </label>
         {/* Radio buttons for selecting weather type */}
@@ -100,6 +113,7 @@ function App() {
               value="hot"
               className="modal__radio__input"
               id="hot"
+              required
             />
             Hot
           </label>
@@ -113,6 +127,7 @@ function App() {
               value="warm"
               className="modal__radio__input"
               id="warm"
+              required
             />
             Warm
           </label>
@@ -126,12 +141,22 @@ function App() {
               value="cold"
               className="modal__radio__input"
               id="cold"
+              required
             />
             Cold
           </label>
         </fieldset>
       </ModalWithForm>
       {/* Modal for previewing a selected card. Only visible if activeModal === "preview" */}
+      <ModalWithForm
+        title="Preview Garment"
+        buttonText="Close Preview"
+        activeModal={activeModal}
+        onClose={closeActiveModal}
+        name="preview"
+      >
+        {/* You can add preview form fields or content here if needed */}
+      </ModalWithForm>
       <ItemModal
         activeModal={activeModal}
         card={selectedCard}
