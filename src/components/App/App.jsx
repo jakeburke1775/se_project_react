@@ -77,13 +77,13 @@ function App() {
       {/* Modal for adding a new garment. Only visible if activeModal === "add-garment" */}
       <ModalWithForm
         title="New Garment"
-        buttonText="Add Garment"
+        buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
         name="add-garment"
       >
         {/* Form fields for garment name and image */}
-        <label htmlFor="name" className="modal__label">
+        <label htmlFor="name" className="modal__label_type_text">
           Name{" "}
           <input
             type="text"
@@ -93,7 +93,7 @@ function App() {
             required
           />
         </label>
-        <label htmlFor="imgUrl" className="modal__label">
+        <label htmlFor="imgUrl" className="modal__label_type_text">
           Image{" "}
           <input
             type="url"
