@@ -13,15 +13,20 @@
   margin: 0;
 }
 
+.header__right-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+}
+
 .header__add-clothes {
-  margin: 0 20px 0 auto;
+  margin: 0 0 0 auto;
   border: none;
   background: none;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-}
-.header__add-clothes:hover {
   cursor: pointer;
 }
 

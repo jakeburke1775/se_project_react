@@ -1,11 +1,12 @@
 import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard"; // Import the WeatherCard component
 import ItemCard from "../ItemCard/ItemCard"; // Import the ItemCard component
-// Import the default clothing items array
-// import { defaultClothingItems } from "../../utils/constants";
+import { useContext } from "react";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 function Main({ weatherData, clothingItems, handleCardClick }) {
   // Main component receives weatherData, clothingItems, and handleCardClick as props
+  const { currentTempUnit } = useContext(CurrentTempUnitContext);
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
@@ -13,7 +14,8 @@ function Main({ weatherData, clothingItems, handleCardClick }) {
       <section className="cards">
         {/* Section for clothing cards */}
         <p className="cards__text">
-          Today is {weatherData.temp.F} &deg; F / You may want to wear:
+          Today is {weatherData.temp[currentTempUnit]} &deg; {currentTempUnit} /
+          You may want to wear:
         </p>
         <ul className="cards__list">
           {/* Unordered list for clothing items */}

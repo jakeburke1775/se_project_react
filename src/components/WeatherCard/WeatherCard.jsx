@@ -2,14 +2,12 @@ import cloudy from "../../assets/day/cloudy.png";
 import "./WeatherCard.css";
 import { weatherOptions } from "../../utils/constants";
 import { defaultWeatherOptions } from "../../utils/constants";
+import { useContext } from "react";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 function WeatherCard({ weatherData }) {
+  const { currentTempUnit } = useContext(CurrentTempUnitContext);
   const filteredOptions = weatherOptions.filter((option) => {
-    // console.log(
-    //   option.day === weatherData.isDay &&
-    //     option.condition === weatherData.condition
-    // ); Debug for filtering options
-    //debugger;
     return (
       option.day === weatherData.isDay &&
       option.condition === weatherData.condition
@@ -25,7 +23,10 @@ function WeatherCard({ weatherData }) {
 
   return (
     <section className="weather-card">
-      <p className="weather-card__temp"> {weatherData.temp.F}&deg; F</p>
+      <p className="weather-card__temp">
+        {currentTempUnit === "F" ? weatherData.temp.F : weatherData.temp.C}&deg;{" "}
+        {currentTempUnit}
+      </p>
       <img
         src={weatherOption?.url}
         alt={`card showing ${weatherOption?.condition} ${
