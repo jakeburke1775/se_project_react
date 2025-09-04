@@ -27,15 +27,24 @@ function App() {
     isDay: true,
   });
   // State for clothing items
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const currentYear = new Date().getFullYear(); // Get the current year for the footer
   // State for which modal is open ("add-garment", "preview", or "")
   const [activeModal, setActiveModal] = useState("");
   // State for which card is selected for preview
   const [selectedCard, setSelectedCard] = useState("");
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
-  const handleAddItem = (newItem) => {};
+  const onAddItem = (data) => {
+    // Map imgUrl to link for consistency with defaultClothingItems
+    const newItem = {
+      ...data,
+      link: data.link,
+      id: clothingItems.length, // Optionally assign a new id
+    };
+    setClothingItems([...clothingItems, newItem]);
+    closeActiveModal();
+  };
 
   const handleTempUnitChange = () => {
     setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
@@ -68,8 +77,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // console.log(weatherData); Debug here :)
-
   // --- Render Section ---
   return (
     <CurrentTempUnitContext.Provider
@@ -89,7 +96,7 @@ function App() {
         <AddItemModal
           //add garment modal
           isOpen={activeModal === "add-garment"}
-          onAddItem={handleAddItem}
+          onAddItem={onAddItem}
           onClose={closeActiveModal}
         />
         {/* </ModalWithForm>  */}

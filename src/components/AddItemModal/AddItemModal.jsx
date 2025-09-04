@@ -4,19 +4,24 @@ import { useForm } from "../../hooks/useForm";
 export default function AddItemModal({ isOpen, onAddItem, onClose }) {
   const defaultValues = {
     name: "",
-    imgUrl: "",
+    link: "",
     weather: "cold",
   };
   const { values, handleChange } = useForm(defaultValues);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onAddItem(values);
+  }
 
   return (
     <ModalWithForm
       title="New Garment"
       name="new-card"
       buttonText="Add garment"
+      onSubmit={handleSubmit}
       isOpen={isOpen}
       onClose={onClose}
-      //   onSubmit={onAddItem}
     >
       <label htmlFor="name" className="modal__label_type_text">
         Name
@@ -24,6 +29,7 @@ export default function AddItemModal({ isOpen, onAddItem, onClose }) {
           type="text"
           className="modal__input"
           id="name"
+          name="name"
           placeholder="Name"
           required
           value={values.name}
@@ -35,10 +41,11 @@ export default function AddItemModal({ isOpen, onAddItem, onClose }) {
         <input
           type="url"
           className="modal__input"
-          id="imgUrl"
+          id="link"
+          name="link"
           placeholder="Image URL"
           required
-          value={values.imgUrl}
+          value={values.link}
           onChange={handleChange}
         />
       </label>
