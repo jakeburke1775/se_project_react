@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react"; // React hook for state management
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
 import { getWeather, filterWeatherData } from "../../utils/weatherApi"; // Import weather API utility
 import {
@@ -34,6 +34,8 @@ function App() {
   // State for which card is selected for preview
   const [selectedCard, setSelectedCard] = useState("");
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
+
+  const handleAddItem = (newItem) => {};
 
   const handleTempUnitChange = () => {
     setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
@@ -84,93 +86,16 @@ function App() {
             handleCardClick={handleCardClick}
           />
         </div>
-        {/* Modal for adding a new garment. Only visible if activeModal === "add-garment" */}
-        <ModalWithForm
-          title="New Garment"
-          buttonText="Add garment"
-          activeModal={activeModal}
+        <AddItemModal
+          //add garment modal
+          isOpen={activeModal === "add-garment"}
+          onAddItem={handleAddItem}
           onClose={closeActiveModal}
-          name="add-garment"
-        >
-          {/* Form fields for garment name and image */}
-          <label htmlFor="name" className="modal__label_type_text">
-            Name{" "}
-            <input
-              type="text"
-              className="modal__input"
-              id="name"
-              placeholder="Name"
-              required
-            />
-          </label>
-          <label htmlFor="imgUrl" className="modal__label_type_text">
-            Image{" "}
-            <input
-              type="url"
-              className="modal__input"
-              id="imgUrl"
-              placeholder="Image URL"
-              required
-            />
-          </label>
-          {/* Radio buttons for selecting weather type */}
-          <fieldset className="modal__radio-btns">
-            <legend className="modal__legend">Select the weather type:</legend>
-            <label
-              className="modal__label modal__label_type_radio"
-              htmlFor="hot"
-            >
-              <input
-                type="radio"
-                name="weather"
-                value="hot"
-                className="modal__radio__input"
-                id="hot"
-                required
-              />
-              Hot
-            </label>
-            <label
-              className="modal__label modal__label_type_radio"
-              htmlFor="warm"
-            >
-              <input
-                type="radio"
-                name="weather"
-                value="warm"
-                className="modal__radio__input"
-                id="warm"
-                required
-              />
-              Warm
-            </label>
-            <label
-              className="modal__label modal__label_type_radio"
-              htmlFor="cold"
-            >
-              <input
-                type="radio"
-                name="weather"
-                value="cold"
-                className="modal__radio__input"
-                id="cold"
-                required
-              />
-              Cold
-            </label>
-          </fieldset>
-        </ModalWithForm>
-        {/* Modal for previewing a selected card. Only visible if activeModal === "preview" */}
-        <ModalWithForm
-          title="Preview Garment"
-          buttonText="Close Preview"
-          activeModal={activeModal}
-          onClose={closeActiveModal}
-          name="preview"
-        >
-          {/* You can add preview form fields or content here if needed */}
-        </ModalWithForm>
+        />
+        {/* </ModalWithForm>  */}
+
         <ItemModal
+          // preview modal
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
