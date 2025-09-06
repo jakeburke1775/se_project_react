@@ -1,18 +1,25 @@
 // Import styles and components
 import "./App.css";
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
+
 import { useEffect, useState } from "react"; // React hook for state management
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
 import { getWeather, filterWeatherData } from "../../utils/weatherApi"; // Import weather API utility
+import { Routes, Route } from "react-router-dom";
 import {
   coordinates,
   APIkey,
   defaultClothingItems,
 } from "../../utils/constants"; // Import coordinates, API key, and clothing items
 
+//import components
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
+
+import Profile from "../Profile/Profile";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
+
+//import contexts
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 // --- App Component ---
@@ -87,11 +94,30 @@ function App() {
           {/* Header receives a callback to open the add garment modal */}
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
           {/* Main receives weatherData for filtering clothing items */}
-          <Main
-            weatherData={weatherData}
-            clothingItems={clothingItems}
-            handleCardClick={handleCardClick}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={<Profile onCardClick={handleCardClick} />}
+            />
+            <Route
+              path="*"
+              element={
+                <main>
+                  <h2>404 - Page Not Found</h2>
+                </main>
+              }
+            />
+          </Routes>
         </div>
         <AddItemModal
           //add garment modal

@@ -8,6 +8,7 @@ import "./vendor/normalize.css";
 import "./index.css";
 // Import the main App component
 import App from "../src/components/App/App";
+import { BrowserRouter } from "react-router-dom";
 
 // --- React App Rendering Section ---
 // Get the root DOM element where the React app will be mounted
@@ -17,6 +18,8 @@ createRoot(document.getElementById("root")).render(
   // <App /> is your main React component, which contains all your app's logic and UI
   // This structure ensures your app is rendered inside the root element, and all child components benefit from StrictMode checks
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );

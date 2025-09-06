@@ -36,7 +36,7 @@ export default function AddItemModal({ isOpen, onAddItem, onClose }) {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="imgUrl" className="modal__label_type_text">
+      <label htmlFor="link" className="modal__label_type_text">
         Image
         <input
           type="url"
