@@ -9,7 +9,7 @@ import {
   APIkey,
   defaultClothingItems,
 } from "../../utils/constants"; // Import coordinates, API key, and clothing items
-import { getItems } from "../../utils/api"; // Import getItems function from api.js
+import { getItems, postItem, deleteItem } from "../../utils/api"; // Import getItems function from api.js
 
 //import components
 import Header from "../Header/Header";
@@ -19,6 +19,7 @@ import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal"; // Import ItemModal component
+import DeleteModal from "../DeleteModal/DeleteModal"; // Import DeleteModal component
 
 //import contexts
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
@@ -51,14 +52,32 @@ function App() {
       id: clothingItems.length, // Optionally assign a new id
     };
     setClothingItems([...clothingItems, newItem]);
+    postItem(newItem).catch(console.error);
     closeActiveModal();
+  };
+
+  // --- Event Handlers Section ---
+
+  const handleDeletePrompt = () => {
+    setActiveModal("delete");
+  };
+
+  const handleItemDelete = () => {
+    deleteItem(selectedCard.id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item.id !== selectedCard.id)
+        );
+        closeActiveModal();
+        setSelectedCard("");
+      })
+      .catch(console.error);
   };
 
   const handleTempUnitChange = () => {
     setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
   };
 
-  // --- Event Handlers Section ---
   // Opens the preview modal and sets the selected card
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -120,6 +139,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />
@@ -139,13 +159,20 @@ function App() {
           onAddItem={onAddItem}
           onClose={closeActiveModal}
         />
-        {/* </ModalWithForm>  */}
 
+        {/* </ModalWithForm>  */}
         <ItemModal
           // preview modal
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
+          handleDeletePrompt={handleDeletePrompt}
+        />
+        <DeleteModal
+          // delete confirmation modal
+          activeModal={activeModal}
+          onClose={closeActiveModal}
+          onConfirm={handleItemDelete}
         />
         <Footer name="Jake Burke" year={currentYear} />
       </div>

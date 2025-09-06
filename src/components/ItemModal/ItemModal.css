@@ -2,6 +2,9 @@
 
 .modal__footer {
   padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .modal__weather {
@@ -21,4 +24,13 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../../assets/close.png");
+}
+
+.modal__delete-item {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff4d00;
+  font-size: 16px;
+  font-weight: bold;
 }

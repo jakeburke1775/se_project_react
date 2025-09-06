@@ -3,13 +3,16 @@ import "./ToggleSwitch.css";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 export default function ToggleSwitch() {
-  const { handleTempUnitChange } = useContext(CurrentTempUnitContext);
+  const { currentTempUnit, handleTempUnitChange } = useContext(
+    CurrentTempUnitContext
+  );
 
   return (
     <label className="toggle-switch">
       <input
         type="checkbox"
         className="toggle-switch__checkbox"
+        checked={currentTempUnit === "C"}
         onChange={handleTempUnitChange}
       />
       <span className="toggle-switch__circle"></span>

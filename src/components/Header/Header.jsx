@@ -38,7 +38,6 @@ function Header({ handleAddClick, weatherData = {} }) {
               src={avatar}
               alt="Terrence Smith"
               className="header__user-avatar"
-              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
             />
           </div>
         </Link>

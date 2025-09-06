@@ -6,6 +6,7 @@ import { useState } from "react";
 // - handleChange: event handler for input changes
 // Pass defaultValues as an object with keys matching input names
 // Example defaultValues: { name: "", imgUrl: "", weather: "cold" }
+// imgUrl and link can be used interchangeably for compatibility of older examples
 
 export function useForm(defaultValues) {
   // Initialize form state with default values
