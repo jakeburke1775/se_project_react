@@ -9,6 +9,7 @@ import {
   APIkey,
   defaultClothingItems,
 } from "../../utils/constants"; // Import coordinates, API key, and clothing items
+import { getItems } from "../../utils/api"; // Import getItems function from api.js
 
 //import components
 import Header from "../Header/Header";
@@ -84,6 +85,14 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        setClothingItems(data); // clothing items to be set here from db.json
+      })
+      .catch(console.error);
+  }, []);
+
   // --- Render Section ---
   return (
     <CurrentTempUnitContext.Provider
@@ -107,7 +116,12 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile onCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
             <Route
               path="*"

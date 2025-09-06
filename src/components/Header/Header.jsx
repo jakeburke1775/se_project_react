@@ -2,6 +2,7 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom";
 
 function Header({ handleAddClick, weatherData = {} }) {
   // Get the current date as a readable string for display in the header
@@ -15,7 +16,9 @@ function Header({ handleAddClick, weatherData = {} }) {
 
   return (
     <header className="header">
-      <img className="header__logo" alt="App Logo" src={logo} />
+      <Link to="/">
+        <img className="header__logo" alt="App Logo" src={logo} />
+      </Link>
       <p className="header__date-n-locate">
         {currentDate}, {weatherData.city || ""}
       </p>
@@ -28,15 +31,17 @@ function Header({ handleAddClick, weatherData = {} }) {
         >
           + Add clothes
         </button>
-        <div className="header__user-container">
-          <p className="header__username">Name</p>
-          <img
-            src={avatar}
-            alt="Terrence Smith"
-            className="header__user-avatar"
-            style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-          />
-        </div>
+        <Link className="header__profile-link" to="/profile">
+          <div className="header__user-container">
+            <p className="header__username">Name</p>
+            <img
+              src={avatar}
+              alt="Terrence Smith"
+              className="header__user-avatar"
+              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+            />
+          </div>
+        </Link>
       </div>
     </header>
   );
