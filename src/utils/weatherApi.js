@@ -17,7 +17,7 @@ export const filterWeatherData = (data) => {
   result.temp = {
     F: Math.round(data.main.temp),
     C: Math.round((data.main.temp - 32) * (5 / 9)),
-  }; //{ F: data.main.temp };
+  };
   result.type = getWeatherType(result.temp.F); // Determine weather type based on temperature
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, Date.now() / 1000); // Determine if it's day or night based on sunrise and sunset times

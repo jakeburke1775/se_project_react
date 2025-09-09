@@ -12,6 +12,11 @@ export function useForm(defaultValues) {
   // Initialize form state with default values
   const [values, setValues] = useState(defaultValues);
 
+    // Resets form fields to default values
+    const resetForm = () => {
+      setValues(defaultValues);
+    };
+
   const handleChange = (evt) => {
     // Handles input changes for controlled components
     // Updates the corresponding field in the form state
@@ -21,9 +26,10 @@ export function useForm(defaultValues) {
   };
 
   // Return form state and handlers
-  return {
-    values,
-    setValues,
-    handleChange,
-  };
+    return {
+      values,
+      setValues,
+      handleChange,
+      resetForm,
+    };
 }

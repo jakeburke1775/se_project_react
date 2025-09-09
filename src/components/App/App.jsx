@@ -49,10 +49,13 @@ function App() {
     const newItem = {
       ...data,
       link: data.link,
-      id: clothingItems.length, // Optionally assign a new id
+      //the json server assigns a new unique id
     };
-    setClothingItems([...clothingItems, newItem]);
-    postItem(newItem).catch(console.error);
+    postItem(newItem)
+      .then(() => {
+        setClothingItems([...clothingItems, newItem]);
+      })
+      .catch(console.error);
     closeActiveModal();
   };
 
@@ -63,10 +66,11 @@ function App() {
   };
 
   const handleItemDelete = () => {
-    deleteItem(selectedCard.id)
+    const itemId = selectedCard.id || selectedCard._id;
+    deleteItem(itemId)
       .then(() => {
         setClothingItems((prevItems) =>
-          prevItems.filter((item) => item.id !== selectedCard.id)
+          prevItems.filter((item) => (item.id || item._id) !== itemId)
         );
         closeActiveModal();
         setSelectedCard("");
@@ -101,7 +105,7 @@ function App() {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
       })
-      .catch(console.error);
+      .catch((error) => console.error("Error fetching weather data:", error));
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,3 @@
-import cloudy from "../../assets/day/cloudy.png";
 import "./WeatherCard.css";
 import { weatherOptions } from "../../utils/constants";
 import { defaultWeatherOptions } from "../../utils/constants";

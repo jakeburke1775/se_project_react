@@ -5,13 +5,14 @@ export default function AddItemModal({ isOpen, onAddItem, onClose }) {
   const defaultValues = {
     name: "",
     link: "",
-    weather: "cold",
+    weather: "",
   };
-  const { values, handleChange } = useForm(defaultValues);
+  const { values, handleChange, resetForm } = useForm(defaultValues);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onAddItem(values);
+    resetForm();
   }
 
   return (
