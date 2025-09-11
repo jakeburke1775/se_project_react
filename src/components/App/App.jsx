@@ -42,7 +42,7 @@ function App() {
   // State for which card is selected for preview
   const [selectedCard, setSelectedCard] = useState("");
   const [currentTempUnit, setCurrentTempUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const onAddItem = (data) => {
     // Map imgUrl to link for consistency with defaultClothingItems
@@ -53,10 +53,10 @@ function App() {
     };
     postItem(newItem)
       .then(() => {
-        setClothingItems([...clothingItems, newItem]);
+        setClothingItems([newItem, ...clothingItems]);
       })
+      .then(closeActiveModal)
       .catch(console.error);
-    closeActiveModal();
   };
 
   // --- Event Handlers Section ---

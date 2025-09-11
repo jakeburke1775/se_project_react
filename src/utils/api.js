@@ -1,3 +1,5 @@
+import checkRes from "./checkRes.js";
+
 const baseUrl = "http://localhost:3001";
 
 function checkRes(res) {
