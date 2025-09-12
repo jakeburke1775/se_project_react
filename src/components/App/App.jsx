@@ -52,10 +52,10 @@ function App() {
       //the json server assigns a new unique id
     };
     postItem(newItem)
-      .then(() => {
-        setClothingItems([newItem, ...clothingItems]);
+      .then((createdItem) => {
+        setClothingItems([createdItem, ...clothingItems]);
+        closeActiveModal();
       })
-      .then(closeActiveModal)
       .catch(console.error);
   };
 

@@ -1,5 +1,3 @@
-import checkRes from "./checkRes.js";
-
 const baseUrl = "http://localhost:3001";
 
 function checkRes(res) {
@@ -24,4 +22,4 @@ function deleteItem(id) {
   }).then(checkRes);
 }
 
-export { getItems, postItem, deleteItem };
+export { getItems, postItem, deleteItem, checkRes };

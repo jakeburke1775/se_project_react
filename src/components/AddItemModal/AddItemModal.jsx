@@ -19,7 +19,7 @@ export default function AddItemModal({ isOpen, onAddItem, onClose }) {
     if (isOpen) {
       resetForm();
     }
-  }, [isOpen, resetForm]);
+  }, [isOpen]);
 
   return (
     <ModalWithForm

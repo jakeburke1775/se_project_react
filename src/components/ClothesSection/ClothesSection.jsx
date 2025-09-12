@@ -13,12 +13,8 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
 
       <ul className="clothes-section__items">
         {/* Unordered list for clothing items */}
-        {clothingItems.map((item, index) => (
-          <ItemCard
-            item={item}
-            key={item.id || item._id || index}
-            onCardClick={onCardClick}
-          />
+        {clothingItems.map((item) => (
+          <ItemCard item={item} key={item._id} onCardClick={onCardClick} />
         ))}
       </ul>
     </div>

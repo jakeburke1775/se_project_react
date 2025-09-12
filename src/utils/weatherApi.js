@@ -1,9 +1,9 @@
-import { checkRes } from "./checkRes";
+import { checkRes } from "./api"; //changed from checkres to api.js
 
 export const getWeather = ({ long, lat }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=imperial&appid=${APIkey}`
-  ).then(checkRes(res));
+  ).then(checkRes);
 };
 
 // data object math
