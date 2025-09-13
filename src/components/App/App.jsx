@@ -110,10 +110,17 @@ function App() {
 
   useEffect(() => {
     getItems()
-      .then((data) => {
-        setClothingItems(data); // clothing items to be set here from db.json
-      })
-      .catch(console.error);
+        .then((data) => {
+          if (data && Array.isArray(data.items) && data.items.length > 0) {
+            setClothingItems(data.items);
+          } else {
+            setClothingItems(defaultClothingItems);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          setClothingItems(defaultClothingItems);
+        });
   }, []);
 
   // --- Render Section ---
